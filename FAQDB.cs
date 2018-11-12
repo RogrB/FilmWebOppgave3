@@ -25,20 +25,20 @@ namespace FAQ
                 {
                     id = kategori.id,
                     navn = kategori.navn,
-                    spørsmål = new List<spørsmål>(),
+                    sp = new List<spørsmål>(),
                     underkategorier = new List<underkategori>()
                 };
-                if(kategori.spørsmål != null)
-                foreach (var spørsmål in kategori.spørsmål)
+                if(kategori.sp != null)
+                foreach (var spørsmål in kategori.sp)
                 {
                     spørsmål nyttSpørsmål = new spørsmål()
                     {
                         id = spørsmål.id,
                         poeng = spørsmål.poeng,
                         antallStemmer = spørsmål.antallStemmer,
-                        Spørsmål = spørsmål.spørsmål
+                        sp = spørsmål.sp
                     };
-                    nyKategori.spørsmål.Add(nyttSpørsmål);
+                    nyKategori.sp.Add(nyttSpørsmål);
                 }
                 if(kategori.underkategorier != null)
                 foreach (var underkategori in kategori.underkategorier)
@@ -47,19 +47,19 @@ namespace FAQ
                     {
                         id = underkategori.id,
                         navn = underkategori.navn,
-                        spørsmål = new List<spørsmål>()
+                        sp = new List<spørsmål>()
                     };
-                    if(underkategori.spørsmål != null)
-                    foreach (var sp in underkategori.spørsmål)
+                    if(underkategori.sp != null)
+                    foreach (var sp in underkategori.sp)
                     {
                         spørsmål nyttSpørsmål = new spørsmål()
                         {
                             id = sp.id,
-                            Spørsmål = sp.spørsmål,
+                            sp = sp.sp,
                             antallStemmer = sp.antallStemmer,
                             poeng = sp.poeng
                         };
-                        nyUnderKategori.spørsmål.Add(nyttSpørsmål);
+                        nyUnderKategori.sp.Add(nyttSpørsmål);
                     }
                     nyKategori.underkategorier.Add(nyUnderKategori);
                 }
@@ -74,44 +74,45 @@ namespace FAQ
             var funnetKategori = _context.Kategorier.FirstOrDefault(f => f.id == id);
             if (funnetKategori != null)
             {
-
-
                 var utKategori = new kategori()
                 {
                     id = funnetKategori.id,
                     navn = funnetKategori.navn,
-                    spørsmål = new List<spørsmål>(),
+                    sp = new List<spørsmål>(),
                     underkategorier = new List<underkategori>()
                 };
-                foreach (var spørsmål in funnetKategori.spørsmål)
+                if(funnetKategori.sp != null)
+                foreach (var spørsmål in funnetKategori.sp)
                 {
                     spørsmål nyttSpørsmål = new spørsmål()
                     {
                         id = spørsmål.id,
-                        Spørsmål = spørsmål.spørsmål,
+                        sp = spørsmål.sp,
                         antallStemmer = spørsmål.antallStemmer,
                         poeng = spørsmål.poeng
                     };
-                    utKategori.spørsmål.Add(nyttSpørsmål);
+                    utKategori.sp.Add(nyttSpørsmål);
                 }
+                if(funnetKategori.underkategorier != null)
                 foreach (var underKategori in funnetKategori.underkategorier)
                 {
                     underkategori nyUnderKategori = new underkategori()
                     {
                         id = underKategori.id,
                         navn = underKategori.navn,
-                        spørsmål = new List<spørsmål>()
+                        sp = new List<spørsmål>()
                     };
-                    foreach (var sp in underKategori.spørsmål)
+                    if(underKategori.sp != null)
+                    foreach (var sp in underKategori.sp)
                     {
                         spørsmål nyttSpørsmål = new spørsmål()
                         {
                             id = sp.id,
                             poeng = sp.poeng,
                             antallStemmer = sp.antallStemmer,
-                            Spørsmål = sp.spørsmål
+                            sp = sp.sp
                         };
-                        nyUnderKategori.spørsmål.Add(nyttSpørsmål);
+                        nyUnderKategori.sp.Add(nyttSpørsmål);
                     }
 
                     utKategori.underkategorier.Add(nyUnderKategori);
@@ -127,7 +128,7 @@ namespace FAQ
             var nyKategori = new DBKategori
             {
                 navn = innKategori.navn,
-                spørsmål = new List<DBSpørsmål>(),
+                sp = new List<DBSpørsmål>(),
                 underkategorier = new List<DBUnderKategori>()
             };
             try
@@ -144,7 +145,7 @@ namespace FAQ
 
         public bool EndreKategori(kategori innKategori)
         {
-            var endreKategori = _context.Kategorier.Find(innKategori.id);
+            var endreKategori = _context.Kategorier.FirstOrDefault(k => k.id == innKategori.id);
             if (endreKategori == null)
             {
                 return false;
@@ -164,18 +165,18 @@ namespace FAQ
 
         public bool LeggSpørsmålIKategori(int kategoriID, spørsmål innSpørsmål)
         {
-            var kategori = _context.Kategorier.Find(kategoriID);
+            var kategori = _context.Kategorier.FirstOrDefault(k => k.id == kategoriID);
             if (kategori == null)
             {
                 return false;
             }
             DBSpørsmål spørsmål = new DBSpørsmål()
             {
-                spørsmål = innSpørsmål.Spørsmål,
+                sp = innSpørsmål.sp,
                 poeng = 0,
                 antallStemmer = 0
             };
-            kategori.spørsmål.Add(spørsmål);
+            kategori.sp.Add(spørsmål);
             try
             {
                 _context.SaveChanges();
@@ -189,18 +190,18 @@ namespace FAQ
 
         public bool LeggSpørsmålIUnderKategori(int kategoriID, spørsmål innSpørsmål)
         {
-            var kategori = _context.UnderKategorier.Find(kategoriID);
+            var kategori = _context.UnderKategorier.FirstOrDefault(k => k.id == kategoriID);
             if (kategori == null)
             {
                 return false;
             }
             DBSpørsmål spørsmål = new DBSpørsmål()
             {
-                spørsmål = innSpørsmål.Spørsmål,
+                sp = innSpørsmål.sp,
                 poeng = 0,
                 antallStemmer = 0
             };
-            kategori.spørsmål.Add(spørsmål);
+            kategori.sp.Add(spørsmål);
             try
             {
                 _context.SaveChanges();
@@ -215,15 +216,16 @@ namespace FAQ
         public List<spørsmål> HentSpørsmålFraKategori(int id)
         {
             List<spørsmål> alleSpørsmål = new List<spørsmål>();
-            var kategori = _context.Kategorier.Find(id);
-            foreach (var spørsmål in kategori.spørsmål)
+            var kategori = _context.Kategorier.FirstOrDefault(k => k.id == id);
+            if((kategori != null) && (kategori.sp != null))
+            foreach (var spørsmål in kategori.sp)
             {
                 spørsmål nyttSpørsmål = new spørsmål()
                 {
                     id = spørsmål.id,
                     poeng = spørsmål.poeng,
                     antallStemmer = spørsmål.antallStemmer,
-                    Spørsmål = spørsmål.spørsmål
+                    sp = spørsmål.sp
                 };
                 alleSpørsmål.Add(nyttSpørsmål);
             }
@@ -233,15 +235,16 @@ namespace FAQ
 
         public spørsmål HentEttSpørsmål(int id)
         {
-            var funnetSpørsmål = _context.Spørsmål.Find(id);
+            var funnetSpørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == id);
             spørsmål utSpørsmål = new spørsmål()
             {
                 id = funnetSpørsmål.id,
-                Spørsmål = funnetSpørsmål.spørsmål,
+                sp = funnetSpørsmål.sp,
                 poeng = funnetSpørsmål.poeng,
                 antallStemmer = funnetSpørsmål.antallStemmer,
                 svar = new List<svar>()
             };
+            if(funnetSpørsmål.svar != null)
             foreach (var svar in funnetSpørsmål.svar)
             {
                 svar nyttSvar = new svar()
@@ -259,7 +262,7 @@ namespace FAQ
 
         public bool TommelOppSpørsmål(int id)
         {
-            var spørsmål = _context.Spørsmål.Find(id);
+            var spørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == id);
             if (spørsmål == null)
             {
                 return false;
@@ -280,7 +283,7 @@ namespace FAQ
 
         public bool TommelNedSpørsmål(int id)
         {
-            var spørsmål = _context.Spørsmål.Find(id);
+            var spørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == id);
             if (spørsmål == null)
             {
                 return false;
@@ -301,7 +304,7 @@ namespace FAQ
 
         public bool TommelOppSvar(int id)
         {
-            var svar = _context.Svar.Find(id);
+            var svar = _context.Svar.FirstOrDefault(s => s.id == id);
             if (svar == null)
             {
                 return false;
@@ -322,7 +325,7 @@ namespace FAQ
 
         public bool TommelNedSvar(int id)
         {
-            var svar = _context.Svar.Find(id);
+            var svar = _context.Svar.FirstOrDefault(s => s.id == id);
             if (svar == null)
             {
                 return false;

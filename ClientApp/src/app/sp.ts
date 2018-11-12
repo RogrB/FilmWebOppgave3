@@ -1,8 +1,8 @@
-﻿import { Kategori } from "./Kategori";
+import { Kategori } from "./Kategori";
 
-export class Spørsmål {
+export class Sp {
     id: number;
-    spørsmål: string;
+    sp: string;
     poeng: number;
     antallStemmer: number;
     svar: Array<Svar>;

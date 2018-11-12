@@ -59,5 +59,8 @@
     "build": {
       "progress": true
     }
-  }
+  },
+  "styles": [
+    "src/bootstrap.min.css"
+  ]
 }

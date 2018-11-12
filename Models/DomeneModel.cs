@@ -12,7 +12,7 @@ namespace Grautbakken_Domene.Models
         public int id { get; set; }
         [Required]
         [RegularExpression("^[a-zæøåA-ZÆØÅ. \\-]{2,30}$")]
-        public string Spørsmål { get; set; }
+        public string sp { get; set; }
         public int poeng { get; set; }
         public int antallStemmer { get; set; }
         public List<svar> svar { get; set; }
@@ -34,7 +34,7 @@ namespace Grautbakken_Domene.Models
         [Required]
         [RegularExpression("^[a-zæøåA-ZÆØÅ. \\-]{2,30}$")]
         public string navn { get; set; }
-        public List<spørsmål> spørsmål { get; set; }
+        public List<spørsmål> sp { get; set; }
         public List<underkategori> underkategorier { get; set; }
     }
 
@@ -44,7 +44,7 @@ namespace Grautbakken_Domene.Models
         [Required]
         [RegularExpression("^[a-zæøåA-ZÆØÅ. \\-]{2,30}$")]
         public string navn { get; set; }
-        public List<spørsmål> spørsmål { get; set; }
+        public List<spørsmål> sp { get; set; }
     }
 
     public class kunde

@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import "rxjs/add/operator/map";
 
 // Custom
-import { Spørsmål } from "./Spørsmål";
+import { Sp } from "./sp";
 import { Kategori } from "./Kategori";
 import { UnderKategori } from "./Kategori";
 
@@ -20,22 +20,17 @@ import { UnderKategori } from "./Kategori";
 export class AppComponent {
   title = 'app';
   visKategoriSkjema: boolean;
-  visSpørsmålSkjema: boolean
-  visSpørsmål: boolean;
+  visspSkjema: boolean
+  vissp: boolean;
   visKategorier: boolean;
-  alleSpørsmål: Array<Spørsmål>;
+  visKategori: boolean;
+  allesp: Array<Sp>;
   alleKategorier: Array<Kategori>;
   kategoriSkjema: FormGroup;
-  spørsmålSkjema: FormGroup;
+  spSkjema: FormGroup;
+  enKategori: Kategori;
 
-  // Gamle
-  visSkjema: boolean;
-  skjemaStatus: string;
-  visKundeListe: boolean;
-  //alleKunder: Array<Kunde>; // for listen av alle kundene
-  skjema: FormGroup;
-
-  laster: boolean; // behold denne
+  laster: boolean;
 
   constructor(private _http: Http, private fb: FormBuilder) {
 
@@ -44,32 +39,21 @@ export class AppComponent {
       navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])]
     });
 
-    this.spørsmålSkjema = fb.group({
+    this.spSkjema = fb.group({
       id: [""],
-      spørsmål: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])]
+      sp: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])]
     });
 
-    // Gammal
-    this.skjema = fb.group({
-      id: [""],
-      fornavn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])],
-      etternavn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])],
-      adresse: [null, Validators.compose([Validators.required, Validators.pattern("[0-9a-zA-ZøæåØÆÅ\\-. ]{2,30}")])],
-      postnr: [null, Validators.compose([Validators.required, Validators.pattern("[0-9]{4}")])],
-      poststed: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])]
-    });
   }
 
   ngOnInit() {
     this.laster = true;
 
     this.hentAlleKategorier();
-    this.visSkjema = false;
-    this.visKundeListe = false;
     this.visKategoriSkjema = false;
     this.visKategorier = true;
-    this.visSpørsmålSkjema = false;
-    this.visSpørsmål = false;
+    this.visspSkjema = false;
+    this.vissp = false;
   }
 
   kategoriSkjemaView() {
@@ -95,8 +79,6 @@ export class AppComponent {
       .subscribe(
         retur => {
           this.hentAlleKategorier();
-          this.visSkjema = false;
-          this.visKundeListe = false;
           this.visKategoriSkjema = false;
           this.visKategorier = true;
         },
@@ -126,8 +108,39 @@ export class AppComponent {
       );
   };
 
+  visKategoriView(id: number) {
+    this.laster = true;
+    this.hentKategori(id);
+  }
+
+  hentKategori(id: number) {
+    this._http.get("api/Kategori/" + id)
+      .subscribe(
+        returData => { 
+          let objekt = returData.json();
+          this.enKategori = new Kategori();
+          this.enKategori.id = objekt.id;
+          this.enKategori.navn = objekt.navn;
+          if (objekt.sp != null) {
+            this.enKategori.sp = objekt.sp;
+          }
+          if (objekt.underkategorier != null) {
+            this.enKategori.underkategorier = objekt.underkategorier;
+          }
+
+          this.laster = false;
+          this.visKategori = true;
+          this.visKategorier = false;
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Kategori")
+      );
+      
+  }
+
   tilKategoriListe() {
     this.visKategoriSkjema = false;
+    this.visKategori = false;
     this.visKategorier = true;
   }
 

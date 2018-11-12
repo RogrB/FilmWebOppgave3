@@ -11,7 +11,7 @@ namespace Grautbakken_Filmsjappe.Models
     {
         [Key]
         public int id { get; set; }
-        public string spørsmål { get; set; }
+        public string sp { get; set; }
         public int poeng { get; set; }
         public int antallStemmer { get; set; }
         public virtual List<DBSvar> svar { get; set; }
@@ -30,7 +30,7 @@ namespace Grautbakken_Filmsjappe.Models
         [Key]
         public int id { get; set; }
         public string navn { get; set; }
-        public virtual List<DBSpørsmål> spørsmål { get; set; }
+        public virtual List<DBSpørsmål> sp { get; set; }
         public virtual List<DBUnderKategori> underkategorier { get; set; }
     }
 
@@ -39,7 +39,7 @@ namespace Grautbakken_Filmsjappe.Models
         [Key]
         public int id { get; set; }
         public string navn { get; set; }
-        public virtual List<DBSpørsmål> spørsmål { get; set; }
+        public virtual List<DBSpørsmål> sp { get; set; }
     }
 
     public class Kunde
