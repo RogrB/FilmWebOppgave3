@@ -39,7 +39,12 @@
     </div>
     <h2>{{enKategori.navn}}</h2>
     <div *ngFor="let sp of enKategori.sp">
-      <p>{{sp}}</p>
+      <p>{{sp.sp}} <span *ngIf="sp.svar?.length > 0" class="badge">{{sp.svar.length}} </span>
+      <span *ngIf="!sp.svar?.length > 0" class="badge">0</span>
+      <br />
+      <span class="infoTekst">Poeng:</span> {{sp.poeng}} &nbsp; &nbsp;
+      <span class="infoTekst">Basert på</span> {{sp.antallStemmer}} <span class="infoTekst">stemmer</span>
+      </p><br />
     </div>
 
     <form [formGroup]="spSkjema" (ngSubmit)="skrivSP(enKategori.id)">

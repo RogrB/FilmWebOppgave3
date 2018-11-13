@@ -1,5 +1,6 @@
 ﻿using Grautbakken_Domene.Models;
 using Grautbakken_Filmsjappe.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,10 @@ namespace FAQ
 
         public kategori HentKategori(int id)
         {
-            var funnetKategori = _context.Kategorier.FirstOrDefault(f => f.id == id);
+            var funnetKategori = _context.Kategorier.
+                Include(s => s.sp).
+                Include(u => u.underkategorier).
+                FirstOrDefault(f => f.id == id);
             if (funnetKategori != null)
             {
                 var utKategori = new kategori()

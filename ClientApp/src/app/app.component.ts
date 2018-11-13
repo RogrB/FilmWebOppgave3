@@ -143,7 +143,7 @@ export class AppComponent {
     this.visKategori = false;
     this.visKategorier = true;
   }
-
+  
   
   skrivSP(id: number) {
     var nyttSp = new Sp();
@@ -163,6 +163,7 @@ export class AppComponent {
           this.laster = false;
           this.visKategori = true;
           this.visKategorier = false;
+          this.hentKategori(this.enKategori.id);
         },
         error => alert(error),
         () => console.log("ferdig post-api/FAQ")
