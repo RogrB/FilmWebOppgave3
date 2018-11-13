@@ -37,10 +37,26 @@
     <div *ngIf="laster">
       Laster kategori.....
     </div>
-    <p>{{enKategori.navn}}</p>
+    <h2>{{enKategori.navn}}</h2>
     <div *ngFor="let sp of enKategori.sp">
       <p>{{sp}}</p>
     </div>
+
+    <form [formGroup]="spSkjema" (ngSubmit)="skrivSP(enKategori.id)">
+      <input class="form-control" formControlName="id" type="hidden" />
+      <div class="form-group">
+        <label>Skriv nytt spørsmål her:</label>
+        <input class="form-control" formControlName="sp" />
+        <p class="alert alert-warning" [hidden]="spSkjema.controls.sp.valid || (spSkjema.controls.sp.pristine && !submitted)">
+          Spørsmålfelt kan ikke inneholde spesialtegn
+        </p>
+      </div>
+      <div class="form-group">
+        <button type="submit" [disabled]="!spSkjema.valid" class="btn btn-primary">Registrer</button>
+        <button class="btn btn-default" (click)="tilKategoriListe()">Tilbake</button>
+      </div>
+    </form>
+
     <br /><br />
     <button class='btn btn-primary' (click)='tilKategoriListe()'>Tilbake til Kategori Liste</button>
   </div>

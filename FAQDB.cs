@@ -174,11 +174,16 @@ namespace FAQ
             {
                 sp = innSpørsmål.sp,
                 poeng = 0,
-                antallStemmer = 0
+                antallStemmer = 0,
+                svar = new List<DBSvar>(),
             };
-            kategori.sp.Add(spørsmål);
             try
             {
+                if(kategori.sp == null)
+                {
+                    kategori.sp = new List<DBSpørsmål>();
+                }
+                kategori.sp.Add(spørsmål);
                 _context.SaveChanges();
             }
             catch(Exception e)

@@ -41,7 +41,7 @@ export class AppComponent {
 
     this.spSkjema = fb.group({
       id: [""],
-      sp: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])]
+      sp: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ?]{1,100}")])]
     });
 
   }
@@ -142,6 +142,31 @@ export class AppComponent {
     this.visKategoriSkjema = false;
     this.visKategori = false;
     this.visKategorier = true;
+  }
+
+  
+  skrivSP(id: number) {
+    var nyttSp = new Sp();
+    nyttSp.sp = this.spSkjema.value.sp;
+
+    var body: string = JSON.stringify(nyttSp);
+    var headers = new Headers({ "Content-Type": "application/json" });
+
+    this._http.post("api/FAQ/" + id, body, { headers: headers })
+      .map(returData => returData.toString())
+      .subscribe(
+      retur => {
+        this.spSkjema.setValue({
+            id: "",
+            sp: ""
+          });
+          this.laster = false;
+          this.visKategori = true;
+          this.visKategorier = false;
+        },
+        error => alert(error),
+        () => console.log("ferdig post-api/FAQ")
+      );
   }
 
   /*

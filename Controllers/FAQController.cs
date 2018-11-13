@@ -30,5 +30,21 @@ namespace Grautbakken_Filmsjappe.Controllers
             return Json(utSpørsmål);
         }
 
+        [HttpPost("{id}")]
+        public JsonResult Post(int id, [FromBody]spørsmål innSpørsmål)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new FAQDB(_context);
+                bool OK = db.LeggSpørsmålIKategori(id, innSpørsmål);
+                if (OK)
+                {
+                    return Json("OK");
+
+                }
+            }
+            return Json("Kunne ikke lagre spørsmålet i DB");
+        }
+
     }
 }
