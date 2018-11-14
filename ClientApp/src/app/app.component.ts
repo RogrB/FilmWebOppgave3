@@ -8,6 +8,7 @@ import "rxjs/add/operator/map";
 
 // Custom
 import { Sp } from "./sp";
+import { Svar } from "./sp";
 import { Kategori } from "./Kategori";
 import { UnderKategori } from "./Kategori";
 
@@ -28,7 +29,9 @@ export class AppComponent {
   alleKategorier: Array<Kategori>;
   kategoriSkjema: FormGroup;
   spSkjema: FormGroup;
+  svarSkjema: FormGroup;
   enKategori: Kategori;
+  ettSp: Sp;
 
   laster: boolean;
 
@@ -42,6 +45,11 @@ export class AppComponent {
     this.spSkjema = fb.group({
       id: [""],
       sp: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ?]{1,100}")])]
+    });
+
+    this.svarSkjema = fb.group({
+      id: [""],
+      svar: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ?]{1,100}")])]
     });
 
   }
@@ -63,6 +71,7 @@ export class AppComponent {
     });
     this.kategoriSkjema.markAsPristine();
     this.visKategorier = false;
+    this.vissp = false;
     this.visKategoriSkjema = true;
   }
 
@@ -141,6 +150,7 @@ export class AppComponent {
   tilKategoriListe() {
     this.visKategoriSkjema = false;
     this.visKategori = false;
+    this.vissp = false;
     this.visKategorier = true;
   }
   
@@ -168,6 +178,68 @@ export class AppComponent {
         error => alert(error),
         () => console.log("ferdig post-api/FAQ")
       );
+  }
+  
+  visSpView(id: number) {
+    this.visKategori = false;
+    this.hentSp(id);
+  }
+
+  hentSp(id: number) {
+    this._http.get("api/FAQ/" + id)
+      .subscribe(
+        returData => {
+          let objekt = returData.json();
+          this.ettSp = new Sp();
+          this.ettSp.id = objekt.id;
+          this.ettSp.sp = objekt.sp;
+          this.ettSp.poeng = objekt.poeng;
+          this.ettSp.antallStemmer = objekt.antallStemmer;
+          if (objekt.svar != null) {
+            this.ettSp.svar = objekt.svar;
+          }
+
+          this.laster = false;
+          this.visKategori = false;
+          this.vissp = true;
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Kategori")
+      );
+  }
+
+  skrivSvar(id: number) {
+    var nyttSvar = new Svar();
+    nyttSvar.svar = this.svarSkjema.value.svar;
+
+    var body: string = JSON.stringify(nyttSvar);
+    var headers = new Headers({ "Content-Type": "application/json" });
+
+    this._http.post("api/Svar/" + id, body, { headers: headers })
+      .map(returData => returData.toString())
+      .subscribe(
+        retur => {
+          this.svarSkjema.setValue({
+            id: "",
+            svar: ""
+          });
+          this.laster = false;
+          this.visKategori = false;
+          this.visKategorier = false;
+          this.vissp = true;
+          this.visSpView(this.ettSp.id);
+        },
+        error => alert(error),
+        () => console.log("ferdig post-api/Svar")
+      );
+  }
+
+  stemSpOpp(id: number) {
+
+  }
+
+  stemSpNed(id: number) {
+
   }
 
   /*

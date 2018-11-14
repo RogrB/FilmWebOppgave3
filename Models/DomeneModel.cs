@@ -22,7 +22,7 @@ namespace Grautbakken_Domene.Models
     {
         public int id { get; set; }
         [Required]
-        [RegularExpression("^[a-zæøåA-ZÆØÅ. \\-]{2,30}$")]
+        [RegularExpression("^[a-zA-ZøæåØÆÅ\\-. ?]{1,100}$")]
         public string Svar { get; set; }
         public int poeng { get; set; }
         public int antallStemmer { get; set; }

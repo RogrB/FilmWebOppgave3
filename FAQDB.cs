@@ -269,6 +269,35 @@ namespace FAQ
             return utSpørsmål;
         }
 
+        public bool SkrivSvar(int spørsmålsID, svar innSvar)
+        {
+            var spørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == spørsmålsID);
+            if (spørsmål == null)
+            {
+                return false;
+            }
+            DBSvar nyttSvar = new DBSvar()
+            {
+                svar = innSvar.Svar,
+                antallStemmer = 0,
+                poeng = 0
+            };
+            if(spørsmål.svar == null)
+            {
+                spørsmål.svar = new List<DBSvar>();
+            }
+            spørsmål.svar.Add(nyttSvar);
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool TommelOppSpørsmål(int id)
         {
             var spørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == id);

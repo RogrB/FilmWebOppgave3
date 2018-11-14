@@ -3,3 +3,7 @@
 .infoTekst {
   color: #808080;
 }
+
+.stem {
+  cursor: pointer;
+}
