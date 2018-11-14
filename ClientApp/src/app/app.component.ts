@@ -235,11 +235,37 @@ export class AppComponent {
   }
 
   stemSpOpp(id: number) {
-
+    this._http.get("api/Stemme/SPOpp/" + id)
+      .subscribe(
+        returData => {
+          let resultat = returData.json();
+          if (resultat) {
+            this.visSpView(this.ettSp.id);
+          }
+          else {
+            console.log("Klarte ikke å stemme");
+          }
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Stemme")
+      );
   }
 
   stemSpNed(id: number) {
-
+    this._http.get("api/Stemme/SPNed/" + id)
+      .subscribe(
+        returData => {
+          let resultat = returData.json();
+          if (resultat) {
+            this.visSpView(this.ettSp.id);
+          }
+          else {
+            console.log("Klarte ikke å stemme");
+          }
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Stemme")
+      );
   }
 
   /*
