@@ -16,112 +16,21 @@ namespace FAQ
             _context = context;
         }
 
-        public List<kategori> HentAlleKategorier()
+        public List<DBKategori> HentAlleKategorier()
         {
             List<DBKategori> alleKategorier = _context.Kategorier.ToList();
-            List<kategori> utKategorier = new List<kategori>();
-            foreach(DBKategori kategori in alleKategorier)
-            {
-                kategori nyKategori = new kategori()
-                {
-                    id = kategori.id,
-                    navn = kategori.navn,
-                    sp = new List<spørsmål>(),
-                    underkategorier = new List<underkategori>()
-                };
-                if(kategori.sp != null)
-                foreach (var spørsmål in kategori.sp)
-                {
-                    spørsmål nyttSpørsmål = new spørsmål()
-                    {
-                        id = spørsmål.id,
-                        poeng = spørsmål.poeng,
-                        antallStemmer = spørsmål.antallStemmer,
-                        sp = spørsmål.sp
-                    };
-                    nyKategori.sp.Add(nyttSpørsmål);
-                }
-                if(kategori.underkategorier != null)
-                foreach (var underkategori in kategori.underkategorier)
-                {
-                    underkategori nyUnderKategori = new underkategori()
-                    {
-                        id = underkategori.id,
-                        navn = underkategori.navn,
-                        sp = new List<spørsmål>()
-                    };
-                    if(underkategori.sp != null)
-                    foreach (var sp in underkategori.sp)
-                    {
-                        spørsmål nyttSpørsmål = new spørsmål()
-                        {
-                            id = sp.id,
-                            sp = sp.sp,
-                            antallStemmer = sp.antallStemmer,
-                            poeng = sp.poeng
-                        };
-                        nyUnderKategori.sp.Add(nyttSpørsmål);
-                    }
-                    nyKategori.underkategorier.Add(nyUnderKategori);
-                }
-                utKategorier.Add(nyKategori);
-            }
             
-            return utKategorier;
+            return alleKategorier;
         }
 
-        public kategori HentKategori(int id)
+        public DBKategori HentKategori(int id)
         {
-            var funnetKategori = _context.Kategorier.
+            var utKategori = _context.Kategorier.
                 Include(s => s.sp).
-                Include(u => u.underkategorier).
-                FirstOrDefault(f => f.id == id);
-            if (funnetKategori != null)
+                    ThenInclude(sv => sv.svar).
+                FirstOrDefault(k => k.id == id);
+            if(utKategori != null)
             {
-                var utKategori = new kategori()
-                {
-                    id = funnetKategori.id,
-                    navn = funnetKategori.navn,
-                    sp = new List<spørsmål>(),
-                    underkategorier = new List<underkategori>()
-                };
-                if(funnetKategori.sp != null)
-                foreach (var spørsmål in funnetKategori.sp)
-                {
-                    spørsmål nyttSpørsmål = new spørsmål()
-                    {
-                        id = spørsmål.id,
-                        sp = spørsmål.sp,
-                        antallStemmer = spørsmål.antallStemmer,
-                        poeng = spørsmål.poeng
-                    };
-                    utKategori.sp.Add(nyttSpørsmål);
-                }
-                if(funnetKategori.underkategorier != null)
-                foreach (var underKategori in funnetKategori.underkategorier)
-                {
-                    underkategori nyUnderKategori = new underkategori()
-                    {
-                        id = underKategori.id,
-                        navn = underKategori.navn,
-                        sp = new List<spørsmål>()
-                    };
-                    if(underKategori.sp != null)
-                    foreach (var sp in underKategori.sp)
-                    {
-                        spørsmål nyttSpørsmål = new spørsmål()
-                        {
-                            id = sp.id,
-                            poeng = sp.poeng,
-                            antallStemmer = sp.antallStemmer,
-                            sp = sp.sp
-                        };
-                        nyUnderKategori.sp.Add(nyttSpørsmål);
-                    }
-
-                    utKategori.underkategorier.Add(nyUnderKategori);
-                }
-
                 return utKategori;
             }
             return null;
@@ -144,26 +53,6 @@ namespace FAQ
             {
                 return false;
             }
-            return true;
-        }
-
-        public bool EndreKategori(kategori innKategori)
-        {
-            var endreKategori = _context.Kategorier.FirstOrDefault(k => k.id == innKategori.id);
-            if (endreKategori == null)
-            {
-                return false;
-            }
-            endreKategori.navn = innKategori.navn;
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
             return true;
         }
 
@@ -222,51 +111,17 @@ namespace FAQ
             return true;
         }
 
-        public List<spørsmål> HentSpørsmålFraKategori(int id)
+        public DBSpørsmål HentEttSpørsmål(int id)
         {
-            List<spørsmål> alleSpørsmål = new List<spørsmål>();
-            var kategori = _context.Kategorier.FirstOrDefault(k => k.id == id);
-            if((kategori != null) && (kategori.sp != null))
-            foreach (var spørsmål in kategori.sp)
+            var spørsmål = _context.Spørsmål.
+                Include(v => v.svar).
+                FirstOrDefault(s => s.id == id);
+            if(spørsmål != null)
             {
-                spørsmål nyttSpørsmål = new spørsmål()
-                {
-                    id = spørsmål.id,
-                    poeng = spørsmål.poeng,
-                    antallStemmer = spørsmål.antallStemmer,
-                    sp = spørsmål.sp
-                };
-                alleSpørsmål.Add(nyttSpørsmål);
+                return spørsmål;
             }
 
-            return alleSpørsmål;
-        }
-
-        public spørsmål HentEttSpørsmål(int id)
-        {
-            var funnetSpørsmål = _context.Spørsmål.FirstOrDefault(s => s.id == id);
-            spørsmål utSpørsmål = new spørsmål()
-            {
-                id = funnetSpørsmål.id,
-                sp = funnetSpørsmål.sp,
-                poeng = funnetSpørsmål.poeng,
-                antallStemmer = funnetSpørsmål.antallStemmer,
-                svar = new List<svar>()
-            };
-            if(funnetSpørsmål.svar != null)
-            foreach (var svar in funnetSpørsmål.svar)
-            {
-                svar nyttSvar = new svar()
-                {
-                    id = svar.id,
-                    Svar = svar.svar,
-                    poeng = svar.poeng,
-                    antallStemmer = svar.antallStemmer
-                };
-                utSpørsmål.svar.Add(nyttSvar);
-            }
-
-            return utSpørsmål;
+            return null;
         }
 
         public bool SkrivSvar(int spørsmålsID, svar innSvar)

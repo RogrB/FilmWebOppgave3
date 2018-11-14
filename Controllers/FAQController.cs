@@ -25,7 +25,7 @@ namespace Grautbakken_Filmsjappe.Controllers
         public JsonResult Get(int id)
         {
             var db = new FAQDB(_context);
-            spørsmål utSpørsmål = db.HentEttSpørsmål(id);
+            var utSpørsmål = db.HentEttSpørsmål(id);
 
             return Json(utSpørsmål);
         }

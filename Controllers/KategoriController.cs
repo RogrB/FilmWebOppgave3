@@ -25,7 +25,7 @@ namespace Grautbakken_Filmsjappe.Controllers
         public JsonResult Get()
         {
             var db = new FAQDB(_context);
-            List<kategori> alleKategorier = db.HentAlleKategorier();
+            List<DBKategori> alleKategorier = db.HentAlleKategorier();
 
             return Json(alleKategorier);
         }
@@ -34,7 +34,7 @@ namespace Grautbakken_Filmsjappe.Controllers
         public JsonResult Get(int id)
         {
             var db = new FAQDB(_context);
-            kategori kategori = db.HentKategori(id);
+            var kategori = db.HentKategori(id);
 
 
             return Json(kategori);

@@ -39,7 +39,7 @@
     </div>
     <h2>{{enKategori.navn}}</h2>
     <div *ngFor="let sp of enKategori.sp">
-      <p><a href="#" (click)="visSpView(sp.id)">{{sp.sp}} <span *ngIf="sp.svar?.length > 0" class="badge">{{sp.svar.length}} </span></a>
+      <p><a href="#" (click)="visSpView(sp.id)">{{sp.sp}} <span *ngIf="sp.svar?.length > 0" class="badge">{{sp.svar?.length}} </span></a>
       <span *ngIf="!sp.svar?.length > 0" class="badge">0</span>
       <br />
       <span class="infoTekst">Poeng:</span> {{sp.poeng}} &nbsp; &nbsp;
@@ -92,8 +92,8 @@
         </td>
       </tr>
     </table>    
-    <br />
-    <div *ngIf="ettSp.svar.lenght > 0">
+    <br /><br />
+    <div *ngIf="ettSp.svar.length > 0">
       <h5>Svar:</h5>
     </div>
     <div *ngFor="let svar of ettSp.svar">
