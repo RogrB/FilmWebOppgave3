@@ -70,72 +70,76 @@
 <div class="bodyContent">
   <br />
   <div *ngIf="vissp">
-    <div *ngIf="laster">
-      Laster spørsmål.....
+    <div class="row">
+      <div class="col-sm-1">
+
+      </div>
+      <div class="col-sm-1">
+        <img src="../assets/img/pilOpp.png" class="img img-responsive stem" width="20" height="20" (click)="stemSpOpp(ettSp.id)" />
+        <h4><span *ngIf="ettSp.poeng < 9">&nbsp;</span>{{ettSp.poeng}}</h4>
+        <img src="../assets/img/pilNed.png" class="img img-responsive stem" width="20" height="20" (click)="stemSpNed(ettSp.id)" />
+      </div>
+        <div class="col-sm-6" style="text-align:left">
+          <div *ngIf="laster">
+            Laster spørsmål.....
+          </div>
+          <h4>{{ettSp.sp}}</h4>
+          <p>
+            <span class="infoTekst">Poeng:</span> {{ettSp.poeng}} &nbsp; &nbsp;
+            <span class="infoTekst">Basert på</span> {{ettSp.antallStemmer}} <span class="infoTekst">stemmer</span>
+          </p>
+      </div>
     </div>
-    <h4>{{ettSp.sp}}</h4>
-    <p>
-      <span class="infoTekst">Poeng:</span> {{ettSp.poeng}} &nbsp; &nbsp;
-      <span class="infoTekst">Basert på</span> {{ettSp.antallStemmer}} <span class="infoTekst">stemmer</span>
-    </p>
-    <table>
-      <tr>
-        <td>
-          <img src="../assets/img/tommelOpp.png" class="img img-responsive stem" width="20" height="20" (click)="stemSpOpp(ettSp.id)" />
-          
-        </td>
-        <td>
-          &nbsp; &nbsp;
-        </td>
-        <td>
-          <img src="../assets/img/tommelNed.png" class="img img-responsive stem" width="20" height="20" (click)="stemSpNed(ettSp.id)" />
-        </td>
-      </tr>
-    </table>    
-    <br /><br />
-    <div *ngIf="ettSp.svar.length > 0">
-      <h4>Svar:</h4>
+      <br /><br />
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-1">
+        <div *ngIf="ettSp.svar.length > 0">
+          <h4>Svar:</h4>
+        </div>
+      </div>
     </div>
     <div *ngFor="let svar of ettSp.svar">
-      <p>
-        {{svar.svar}} <br />
-        <span class="infoTekst">Poeng:</span> {{svar.poeng}} &nbsp; &nbsp;
-        <span class="infoTekst">Basert på</span> {{svar.antallStemmer}} <span class="infoTekst">stemmer</span>
-      </p>
-      <table>
-        <tr>
-          <td>
-            <img src="../assets/img/tommelOpp.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarOpp(svar.id)" />
-
-          </td>
-          <td>
-            &nbsp; &nbsp;
-          </td>
-          <td>
-            <img src="../assets/img/tommelNed.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarNed(svar.id)" />
-          </td>
-        </tr>
-      </table>
-      <br />
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1">
+          <img src="../assets/img/pilOpp.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarOpp(svar.id)" />
+          <h4><span *ngIf="svar.poeng < 9">&nbsp;</span>{{svar.poeng}}</h4>
+          <img src="../assets/img/pilNed.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarNed(svar.id)" />
+        </div>
+        <div class="col-sm-6">
+          <p>
+            {{svar.svar}} <br />
+            <span class="infoTekst">Poeng:</span> {{svar.poeng}} &nbsp; &nbsp;
+            <span class="infoTekst">Basert på</span> {{svar.antallStemmer}} <span class="infoTekst">stemmer</span>
+          </p>
+          <hr />
+          <br />
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-6">
+        <form [formGroup]="svarSkjema" (ngSubmit)="skrivSvar(ettSp.id)">
+          <input class="form-control" formControlName="id" type="hidden" />
+          <div class="form-group">
+            <label>Skriv svar her:</label>
+            <input class="form-control" formControlName="svar" />
+            <p class="alert alert-warning" [hidden]="svarSkjema.controls.svar.valid || (svarSkjema.controls.svar.pristine && !submitted)">
+              Svarfelt kan ikke inneholde spesialtegn
+            </p>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="!svarSkjema.valid" class="btn btn-primary">Registrer</button>
+            <button class="btn btn-default" (click)="tilbakeTilKategoriView()">Tilbake</button>
+          </div>
+        </form>
 
-    <form [formGroup]="svarSkjema" (ngSubmit)="skrivSvar(ettSp.id)">
-      <input class="form-control" formControlName="id" type="hidden" />
-      <div class="form-group">
-        <label>Skriv svar her:</label>
-        <input class="form-control" formControlName="svar" />
-        <p class="alert alert-warning" [hidden]="svarSkjema.controls.svar.valid || (svarSkjema.controls.svar.pristine && !submitted)">
-          Svarfelt kan ikke inneholde spesialtegn
-        </p>
+        <br /><br />
+        <button class='btn btn-primary' (click)='tilKategoriListe()'>Tilbake til Kategori Liste</button>
       </div>
-      <div class="form-group">
-        <button type="submit" [disabled]="!svarSkjema.valid" class="btn btn-primary">Registrer</button>
-        <button class="btn btn-default" (click)="tilbakeTilKategoriView()">Tilbake</button>
-      </div>
-    </form>
-
-    <br /><br />
-    <button class='btn btn-primary' (click)='tilKategoriListe()'>Tilbake til Kategori Liste</button>
+    </div>
   </div>
 </div>
 
