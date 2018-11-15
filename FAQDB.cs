@@ -118,6 +118,7 @@ namespace FAQ
                 FirstOrDefault(s => s.id == id);
             if(spørsmål != null)
             {
+                spørsmål.svar = spørsmål.svar.OrderByDescending(f => f.poeng).ToList();
                 return spørsmål;
             }
 
