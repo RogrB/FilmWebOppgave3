@@ -42,7 +42,6 @@ namespace FAQ
             {
                 navn = innKategori.navn,
                 sp = new List<DBSpørsmål>(),
-                underkategorier = new List<DBUnderKategori>()
             };
             try
             {
@@ -80,31 +79,6 @@ namespace FAQ
                 _context.SaveChanges();
             }
             catch(Exception e)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool LeggSpørsmålIUnderKategori(int kategoriID, spørsmål innSpørsmål)
-        {
-            var kategori = _context.UnderKategorier.FirstOrDefault(k => k.id == kategoriID);
-            if (kategori == null)
-            {
-                return false;
-            }
-            DBSpørsmål spørsmål = new DBSpørsmål()
-            {
-                sp = innSpørsmål.sp,
-                poeng = 0,
-                antallStemmer = 0
-            };
-            kategori.sp.Add(spørsmål);
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (Exception e)
             {
                 return false;
             }

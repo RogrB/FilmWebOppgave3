@@ -10,7 +10,6 @@ import "rxjs/add/operator/map";
 import { Sp } from "./sp";
 import { Svar } from "./sp";
 import { Kategori } from "./Kategori";
-import { UnderKategori } from "./Kategori";
 
 @Component({
   selector: 'app-root',
@@ -137,9 +136,6 @@ export class AppComponent {
           this.enKategori.navn = objekt.navn;
           if (objekt.sp != null) {
             this.enKategori.sp = objekt.sp;
-          }
-          if (objekt.underkategorier != null) {
-            this.enKategori.underkategorier = objekt.underkategorier;
           }
 
           this.laster = false;
