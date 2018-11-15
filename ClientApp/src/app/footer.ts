@@ -7,10 +7,11 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class footer {
+  dagensDato: Date;
 
-    get dato() {
-        return new Date();
-    }
+  constructor() {
+    this.dagensDato = new Date();
+  }
 
 }
 

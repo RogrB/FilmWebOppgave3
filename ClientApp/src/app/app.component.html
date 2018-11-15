@@ -25,14 +25,22 @@
 <div class="bodyContent">
   <br />
   <div *ngIf="visKategorier">
-    <div *ngIf="laster">
-      Laster kategorier.....
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-6">
+        <h3>Velg Kategori:</h3>
+        <br />
+        <div *ngIf="laster">
+          Laster kategorier.....
+        </div>
+        <div *ngFor="let kategori of alleKategorier">
+          <button (click)="visKategoriView(kategori.id)" type="button" class="btn btn-info">{{kategori.navn}}</button>
+          <br /><br />
+        </div>
+        <br /><br />
+        <button class='btn btn-default' (click)='kategoriSkjemaView()'>Register Ny Kategori</button>
+      </div>
     </div>
-    <div *ngFor="let kategori of alleKategorier">
-      <button (click)="visKategoriView(kategori.id)" type="button" class="btn btn-info">{{kategori.navn}}</button>
-    </div>
-    <br /><br />
-    <button class='btn btn-primary' (click)='kategoriSkjemaView()'>Register Ny Kategori</button>
   </div>
 </div>
 
@@ -57,7 +65,8 @@
           <br />
           <span class="infoTekst">Poeng:</span> {{sp.poeng}} &nbsp; &nbsp;
           <span class="infoTekst">Basert på</span> {{sp.antallStemmer}} <span class="infoTekst">stemmer</span>
-          </p><br />
+          </p><hr />
+          <br />
         </div>
       </div>
     </div>
