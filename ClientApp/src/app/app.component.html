@@ -94,7 +94,7 @@
     </table>    
     <br /><br />
     <div *ngIf="ettSp.svar.length > 0">
-      <h5>Svar:</h5>
+      <h4>Svar:</h4>
     </div>
     <div *ngFor="let svar of ettSp.svar">
       <p>
@@ -130,7 +130,7 @@
       </div>
       <div class="form-group">
         <button type="submit" [disabled]="!svarSkjema.valid" class="btn btn-primary">Registrer</button>
-        <button class="btn btn-default" (click)="tilKategoriListe()">Tilbake</button>
+        <button class="btn btn-default" (click)="tilbakeTilKategoriView()">Tilbake</button>
       </div>
     </form>
 
