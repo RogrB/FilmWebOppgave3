@@ -1,7 +1,23 @@
-﻿.navbar {
+.navbar {
     position: relative;
     z-index: 1000;
     min-height: 50px;
     margin-bottom: 0px;
     border: 1px solid transparent;
 }
+
+#søkeForslag {
+  position: absolute;
+  z-index: 100;
+  background-color: #1e1e1e;
+  color: #808080;
+}
+
+  #søkeForslag span {
+    background-color: #ffd800;
+    color: #1e1e1e;
+  }
+
+  #søkeForslag p {
+    text-transform: capitalize;
+  }

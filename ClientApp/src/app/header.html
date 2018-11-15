@@ -26,13 +26,38 @@
             </button>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Hjem</a></li>
-                <li><a href="#">Filmer</a></li>
-                <li><a href="#">Sjangere</a></li>
-                <li><a href="#">Skuespillere</a></li>
-                <li><a href="#">Nyheter</a></li>
-            </ul>
+          <ul class="nav navbar-nav">
+            <li><a href="#">Hjem</a></li>
+            <li><a href="#">Filmer</a></li>
+            <li><a href="#">Sjangere</a></li>
+            <li><a href="#">Skuespillere</a></li>
+            <li><a href="#">Nyheter</a></li>
+            <li>
+              <div id="søkeFelt">
+                <form [formGroup]="forslag" autocomplete="off">
+                  <input type="text" id="sok" formControlName="sok" size="30" (keyup)="hentForslag()" class="form-control" placeholder="Søk på spørsmål" />
+                  <div id="søkeForslag" *ngIf="visForslagsListe">
+                    <div *ngFor="let resultat of alleForslag">
+                      <a style="cursor:pointer" (click)="sendTilComponent(resultat.id)">{{resultat.sp}}</a>
+                      <br /><br />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </li>
+          </ul>
         </div>
     </div>
 </nav>
+
+<script type="text/javascript">
+
+  function markerSøk(tekst) {
+    tekst = tekst.toLowerCase();
+    var søkeTekst = $("#søkeInput").val();
+    var markering = "<span>" + søkeTekst + "</span>";
+    var formatering = tekst.replace(søkeTekst, markering);
+    return formatering;
+  }
+</script>

@@ -46,5 +46,14 @@ namespace Grautbakken_Filmsjappe.Controllers
             return Json("Kunne ikke lagre spørsmålet i DB");
         }
 
+        [HttpGet("[action]/{streng}")]
+        public JsonResult HentForslag(string streng)
+        {
+            var db = new FAQDB(_context);
+            var resultat = db.HentSøkeforslag(streng);
+
+            return Json(resultat);
+        }
+
     }
 }

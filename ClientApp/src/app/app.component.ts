@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Http, Response, } from '@angular/http';
 import { Headers } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
 
 // RXJS
 import "rxjs/add/operator/map";
@@ -31,6 +32,7 @@ export class AppComponent {
   svarSkjema: FormGroup;
   enKategori: Kategori;
   ettSp: Sp;
+  @Input() forslag: Input;
 
   laster: boolean;
 
@@ -182,7 +184,9 @@ export class AppComponent {
   }
   
   visSpView(id: number) {
+    console.log(id);
     this.visKategori = false;
+    this.visKategorier = false;
     this.hentSp(id);
   }
 

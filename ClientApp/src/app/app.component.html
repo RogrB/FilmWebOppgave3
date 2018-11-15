@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (hentSp)="visSpView($event)"></app-header>
 
 <div *ngIf="visKategoriSkjema" class="bodyContent">
   <div class="row">
@@ -170,5 +170,4 @@
     </div>
   </div>
 </div>
-
 <app-footer></app-footer>

@@ -38,6 +38,12 @@ namespace Grautbakken_Domene.Models
         public List<underkategori> underkategorier { get; set; }
     }
 
+    public class Søkeresultat
+    {
+        public int id { get; set; }
+        public string sp { get; set; }
+    }
+
     public class underkategori
     {
         public int id { get; set; }

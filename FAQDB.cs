@@ -212,6 +212,26 @@ namespace FAQ
             return true;
         }
 
+        public List<Søkeresultat> HentSøkeforslag(string input)
+        {
+            List<Søkeresultat> forslag = new List<Søkeresultat>();
+            var alleSpørsmål = _context.Spørsmål.Where(s => s.sp.Contains(input));
+            if (alleSpørsmål != null)
+            {
+                foreach(var spørsmål in alleSpørsmål)
+                {
+                    Søkeresultat resultat = new Søkeresultat()
+                    {
+                        id = spørsmål.id,
+                        sp = spørsmål.sp
+                    };
+                    forslag.Add(resultat);
+                }
+                return forslag;
+            }
+            return null;
+        }
+
     }
 }
 

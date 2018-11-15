@@ -14,3 +14,8 @@ export class Svar {
     poeng: number;
     antallStemmer: number;
 }
+
+export class Forslag {
+  id: number;
+  sp: string;
+}
