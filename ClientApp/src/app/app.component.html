@@ -1,20 +1,25 @@
 <app-header></app-header>
 
 <div *ngIf="visKategoriSkjema" class="bodyContent">
-  <form [formGroup]="kategoriSkjema" (ngSubmit)="registrerKategori()">
-    <input class="form-control" formControlName="id" type="hidden" />
-    <div class="form-group">
-      <label>Kategori:</label>
-      <input class="form-control" formControlName="navn" />
-      <p class="alert alert-warning" [hidden]="kategoriSkjema.controls.navn.valid || (kategoriSkjema.controls.navn.pristine && !submitted)">
-        Kategorinavn er obligatorisk og kan ikke inneholde spesialtegn
-      </p>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <form [formGroup]="kategoriSkjema" (ngSubmit)="registrerKategori()">
+        <input class="form-control" formControlName="id" type="hidden" />
+        <div class="form-group">
+          <label>Kategori:</label>
+          <input class="form-control" formControlName="navn" />
+          <p class="alert alert-warning" [hidden]="kategoriSkjema.controls.navn.valid || (kategoriSkjema.controls.navn.pristine && !submitted)">
+            Kategorinavn er obligatorisk og kan ikke inneholde spesialtegn
+          </p>
+        </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="!kategoriSkjema.valid" class="btn btn-primary">Registrer</button>
+          <button class="btn btn-default" (click)="tilKategoriListe()">Tilbake</button>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <button type="submit" [disabled]="!kategoriSkjema.valid" class="btn btn-primary">Registrer</button>
-      <button class="btn btn-default" (click)="tilKategoriListe()">Tilbake</button>
-    </div>
-  </form>
+  </div>
 </div>
 
 <div class="bodyContent">
@@ -27,7 +32,7 @@
       <button (click)="visKategoriView(kategori.id)" type="button" class="btn btn-info">{{kategori.navn}}</button>
     </div>
     <br /><br />
-    <button class='btn btn-primary' (click)='kategoriSkjemaView()'>Register Kategori</button>
+    <button class='btn btn-primary' (click)='kategoriSkjemaView()'>Register Ny Kategori</button>
   </div>
 </div>
 
