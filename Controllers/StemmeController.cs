@@ -38,5 +38,23 @@ namespace Grautbakken_Filmsjappe.Controllers
 
             return Json(resultat);
         }
+
+        [HttpGet("[action]/{id}")]
+        public JsonResult SvarNed(int id)
+        {
+            var db = new FAQDB(_context);
+            bool resultat = db.TommelNedSvar(id);
+
+            return Json(resultat);
+        }
+
+        [HttpGet("[action]/{id}")]
+        public JsonResult SvarOpp(int id)
+        {
+            var db = new FAQDB(_context);
+            bool resultat = db.TommelOppSvar(id);
+
+            return Json(resultat);
+        }
     }
 }

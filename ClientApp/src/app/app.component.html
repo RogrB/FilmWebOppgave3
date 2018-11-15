@@ -101,7 +101,22 @@
         {{svar.svar}} <br />
         <span class="infoTekst">Poeng:</span> {{svar.poeng}} &nbsp; &nbsp;
         <span class="infoTekst">Basert på</span> {{svar.antallStemmer}} <span class="infoTekst">stemmer</span>
-      </p><br />
+      </p>
+      <table>
+        <tr>
+          <td>
+            <img src="../assets/img/tommelOpp.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarOpp(svar.id)" />
+
+          </td>
+          <td>
+            &nbsp; &nbsp;
+          </td>
+          <td>
+            <img src="../assets/img/tommelNed.png" class="img img-responsive stem" width="20" height="20" (click)="stemSvarNed(svar.id)" />
+          </td>
+        </tr>
+      </table>
+      <br />
     </div>
 
     <form [formGroup]="svarSkjema" (ngSubmit)="skrivSvar(ettSp.id)">

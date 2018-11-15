@@ -268,6 +268,40 @@ export class AppComponent {
       );
   }
 
+  stemSvarNed(id: number) {
+    this._http.get("api/Stemme/SvarNed/" + id)
+      .subscribe(
+        returData => {
+          let resultat = returData.json();
+          if (resultat) {
+            this.visSpView(this.ettSp.id);
+          }
+          else {
+            console.log("Klarte ikke å stemme");
+          }
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Stemme")
+      );
+  }
+
+  stemSvarOpp(id: number) {
+    this._http.get("api/Stemme/SvarOpp/" + id)
+      .subscribe(
+        returData => {
+          let resultat = returData.json();
+          if (resultat) {
+            this.visSpView(this.ettSp.id);
+          }
+          else {
+            console.log("Klarte ikke å stemme");
+          }
+        },
+        error => alert(error),
+        () => console.log("ferdig get-api/Stemme")
+      );
+  }
+
   /*
   hentAlleKunder() {
     this._http.get("api/kunde/")
