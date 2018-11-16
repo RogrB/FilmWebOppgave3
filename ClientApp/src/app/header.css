@@ -13,11 +13,15 @@
   color: #808080;
 }
 
-  #søkeForslag span {
-    background-color: #ffd800;
-    color: #1e1e1e;
-  }
+#søkeForslag span {
+  background-color: #ffd800;
+  color: #1e1e1e;
+}
 
-  #søkeForslag p {
-    text-transform: capitalize;
-  }
+#søkeForslag p {
+  text-transform: capitalize;
+}
+
+.markering {
+  background-color:yellow;
+}

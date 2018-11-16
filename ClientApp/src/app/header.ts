@@ -32,7 +32,6 @@ export class header {
        console.log(streng);
     if (streng != null && streng != "" && streng != undefined) {
       this._http.get("api/FAQ/HentForslag/" + streng)
-      
         .subscribe(
           returData => {
             let resultat = returData.json();
@@ -40,8 +39,10 @@ export class header {
               this.visForslagsListe = true;
               this.alleForslag = [];
               for (let objekt of resultat) {
-                this.alleForslag.push(objekt);
-                console.log(objekt);
+                let nyttForslag = new Forslag();
+                nyttForslag.id = objekt.id;
+                nyttForslag.sp = this.markering(objekt.sp);
+                this.alleForslag.push(nyttForslag);
               }
             }
             else {
@@ -56,6 +57,16 @@ export class header {
     else {
       this.visForslagsListe = false;
     }
+  }
+
+  public markering(innhold) {
+    let sokeTekst = this.forslag.value.sok;
+    if (!sokeTekst) {
+      return innhold;
+    }
+    return innhold.replace(new RegExp(sokeTekst, "gi"), match => {
+      return '<span class="markering">' + match + '</span>';
+    });
   }
 
   sendTilComponent(id) {
