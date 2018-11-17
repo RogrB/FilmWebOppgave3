@@ -72,6 +72,8 @@ namespace Grautbakken_Filmsjappe
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            //SeedData.Initialize(app.ApplicationServices);   -- GAMMEL SEEDING FOR CORE 1.0
         }
     }
 }

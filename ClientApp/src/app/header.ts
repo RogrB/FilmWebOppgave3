@@ -29,7 +29,6 @@ export class header {
 
   hentForslag() {
     var streng = this.forslag.value.sok;
-       console.log(streng);
     if (streng != null && streng != "" && streng != undefined) {
       this._http.get("api/FAQ/HentForslag/" + streng)
         .subscribe(
@@ -50,8 +49,7 @@ export class header {
               this.visForslagsListe = false;
             }
           },
-          error => alert(error),
-      () => console.log("ferdig get-api/HentForslag")
+          error => alert(error)
       );
     }
     else {

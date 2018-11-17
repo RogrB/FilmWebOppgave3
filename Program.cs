@@ -25,6 +25,7 @@ namespace Grautbakken_Filmsjappe
                 {
                     var context = services.GetRequiredService<FAQContext>();
                     context.Database.EnsureCreated();
+                    SeedData.Initialize(services); // INITIALISERER DATASEEDING HER
                 }
                 catch (Exception ex)
                 {
