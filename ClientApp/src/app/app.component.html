@@ -27,7 +27,7 @@
   <div *ngIf="visKategorier">
     <div class="row">
       <div class="col-sm-1"></div>
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         <h3>Velg Kategori:</h3>
         <br />
         <div *ngIf="laster">
@@ -39,6 +39,16 @@
         </div>
         <br /><br />
         <button class='btn btn-default' (click)='kategoriSkjemaView()'>Register Ny Kategori</button>
+      </div>
+      <div class="col-sm-4">
+        <h3>Top 5 Spørsmål:</h3>
+        <br />
+        <div *ngIf="laster">
+          Laster spørsmål.....
+        </div>
+        <div *ngFor="let sp of topListe">
+          {{sp.poeng}} <span class="infoTekst">Poeng:</span> <a (click)="visSpView(sp.id)" style="cursor:pointer">{{sp.sp}}</a><br /><br />
+        </div>
       </div>
     </div>
   </div>
@@ -84,7 +94,6 @@
           </div>
           <div class="form-group">
             <button type="submit" [disabled]="!spSkjema.valid" class="btn btn-primary">Registrer</button>
-            <button class="btn btn-default" (click)="tilKategoriListe()">Tilbake</button>
           </div>
         </form>
 
@@ -160,7 +169,6 @@
           </div>
           <div class="form-group">
             <button type="submit" [disabled]="!svarSkjema.valid" class="btn btn-primary">Registrer</button>
-            <button class="btn btn-default" (click)="tilbakeTilKategoriView()">Tilbake</button>
           </div>
         </form>
 

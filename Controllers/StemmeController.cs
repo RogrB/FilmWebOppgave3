@@ -10,6 +10,7 @@ using Grautbakken_Filmsjappe.Models;
 
 namespace Grautbakken_Filmsjappe.Controllers
 {
+    // Klasse for å stemme på spørsmål og svar
     [Route("api/[controller]")]
     [ApiController]
     public class StemmeController : Controller

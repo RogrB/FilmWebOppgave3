@@ -9,6 +9,7 @@ import { Component, OnInit } from "@angular/core";
 export class footer {
   dagensDato: Date;
 
+  // Eksporterer dagens dato til footeren
   constructor() {
     this.dagensDato = new Date();
   }

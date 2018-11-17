@@ -212,6 +212,7 @@ namespace FAQ
             return true;
         }
 
+        // Metode som returnerer søkeforslag basert på input fra brukeren
         public List<Søkeresultat> HentSøkeforslag(string input)
         {
             List<Søkeresultat> forslag = new List<Søkeresultat>();
@@ -230,6 +231,14 @@ namespace FAQ
                 return forslag;
             }
             return null;
+        }
+
+        // Metode som henter de 5 spørsmålene som har høyest poeng
+        public List<DBSpørsmål> HentTopSpørsmål()
+        {
+            List<DBSpørsmål> spørsmål = _context.Spørsmål.OrderByDescending(f => f.poeng).Take(5).ToList();
+
+            return spørsmål;
         }
 
     }

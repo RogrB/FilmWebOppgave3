@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Grautbakken_Filmsjappe.Controllers
 {
+    // Klasse for å håndtere spørsmål
     [Route("api/[controller]")]
     [ApiController]
     public class FAQController : Controller
@@ -51,6 +52,15 @@ namespace Grautbakken_Filmsjappe.Controllers
         {
             var db = new FAQDB(_context);
             var resultat = db.HentSøkeforslag(streng);
+
+            return Json(resultat);
+        }
+
+        [HttpGet("[action]")]
+        public JsonResult HentTopListe()
+        {
+            var db = new FAQDB(_context);
+            var resultat = db.HentTopSpørsmål();
 
             return Json(resultat);
         }

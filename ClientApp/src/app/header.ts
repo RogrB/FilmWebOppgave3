@@ -27,6 +27,7 @@ export class header {
     this.visForslagsListe = false;
   }
 
+  // Henter søkeforslag basert på input fra brukeren i søkefeltet
   hentForslag() {
     var streng = this.forslag.value.sok;
     if (streng != null && streng != "" && streng != undefined) {
@@ -57,6 +58,7 @@ export class header {
     }
   }
 
+  // Lager gul "markering" rundt søketreff i søkefeltet
   public markering(innhold) {
     let sokeTekst = this.forslag.value.sok;
     if (!sokeTekst) {
@@ -67,6 +69,7 @@ export class header {
     });
   }
 
+  // Sender hvilket spørsmålsID som ble trykket på i søkefeltet til app.component.ts
   sendTilComponent(id) {
     this.visForslagsListe = false;
     this.hentSp.emit(id);

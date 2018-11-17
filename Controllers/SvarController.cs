@@ -21,6 +21,7 @@ namespace Grautbakken_Filmsjappe.Controllers
             _context = context;
         }
 
+        // Skriver svar til DB
         [HttpPost("{id}")]
         public JsonResult Post(int id, [FromBody]svar innSvar)
         {

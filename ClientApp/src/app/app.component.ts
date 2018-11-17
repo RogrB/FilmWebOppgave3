@@ -26,6 +26,7 @@ export class AppComponent {
   visKategorier: boolean;
   visKategori: boolean;
   allesp: Array<Sp>;
+  topListe: Array<Sp>;
   alleKategorier: Array<Kategori>;
   kategoriSkjema: FormGroup;
   spSkjema: FormGroup;
@@ -59,12 +60,14 @@ export class AppComponent {
     this.laster = true;
 
     this.hentAlleKategorier();
+    this.hentTopListe();
     this.visKategoriSkjema = false;
     this.visKategorier = true;
     this.visspSkjema = false;
     this.vissp = false;
   }
 
+  // Viser registreringskjema for ny kategori
   kategoriSkjemaView() {
     this.kategoriSkjema.setValue({
       id: "",
@@ -76,6 +79,7 @@ export class AppComponent {
     this.visKategoriSkjema = true;
   }
 
+  // Sender registrering av kategori til API
   registrerKategori() {
     var nyKategori = new Kategori();
 
@@ -114,7 +118,7 @@ export class AppComponent {
           };
         },
         error => alert(error),
-        () => console.log("ferdig get-api/kategori")
+        () => console.log("ferdig get-api/kategorier")
       );
   };
 
@@ -154,10 +158,11 @@ export class AppComponent {
     this.visKategoriSkjema = false;
     this.visKategori = false;
     this.vissp = false;
+    this.hentAlleKategorier();
     this.visKategorier = true;
   }
   
-  
+  // Skriver spørsmål til db
   skrivSP(id: number) {
     var nyttSp = new Sp();
     nyttSp.sp = this.spSkjema.value.sp;
@@ -234,8 +239,7 @@ export class AppComponent {
           this.vissp = true;
           this.visSpView(this.ettSp.id);
         },
-        error => alert(error),
-        () => console.log("ferdig post-api/Svar")
+        error => alert(error)
       );
   }
 
@@ -251,8 +255,7 @@ export class AppComponent {
             console.log("Klarte ikke å stemme");
           }
         },
-        error => alert(error),
-        () => console.log("ferdig get-api/Stemme")
+        error => alert(error)
       );
   }
 
@@ -268,8 +271,7 @@ export class AppComponent {
             console.log("Klarte ikke å stemme");
           }
         },
-        error => alert(error),
-        () => console.log("ferdig get-api/Stemme")
+        error => alert(error)
       );
   }
 
@@ -285,8 +287,7 @@ export class AppComponent {
             console.log("Klarte ikke å stemme");
           }
         },
-        error => alert(error),
-        () => console.log("ferdig get-api/Stemme")
+        error => alert(error)
       );
   }
 
@@ -302,9 +303,31 @@ export class AppComponent {
             console.log("Klarte ikke å stemme");
           }
         },
-        error => alert(error),
-        () => console.log("ferdig get-api/Stemme")
+        error => alert(error)
       );
   }
 
+  // Henter de 5 øverste spørsmålene basert på poeng
+  hentTopListe() {
+    this._http.get("api/FAQ/HentTopListe/")
+      .subscribe(
+        returData => {
+          let resultat = returData.json();
+          if (resultat) {
+            this.topListe = [];
+            for (let objekt of resultat) {
+              let nyttSp = new Sp();
+              nyttSp.sp = objekt.sp;
+              nyttSp.poeng = objekt.poeng;
+              nyttSp.id = objekt.id;
+              this.topListe.push(nyttSp);
+            }
+          }
+          else {
+            console.log("Klarte ikke å hente topliste av spørsmål");
+          }
+        },
+        error => alert(error)
+      );
+  }
 }

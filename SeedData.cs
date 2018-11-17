@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grautbakken_Filmsjappe
 {
+    // Klasse som seeder data til DB
     public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
