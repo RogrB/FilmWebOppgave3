@@ -17,15 +17,17 @@
 
 
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="row">
+        <div class="col-md-4">
           <ul class="nav navbar-nav">
             <li><a href="#">Hjem</a></li>
             <li><a href="#">Filmer</a></li>
@@ -33,22 +35,24 @@
             <li><a href="#">Skuespillere</a></li>
             <li><a href="#">Nyheter</a></li>
             <li>
-              <div id="søkeFelt">
-                <form [formGroup]="forslag" autocomplete="off">
-                  <input type="text" id="sok" formControlName="sok" size="30" (keyup)="hentForslag()" class="form-control" placeholder="Søk på spørsmål" />
-                  <div id="søkeForslag" *ngIf="visForslagsListe">
-                    <div *ngFor="let resultat of alleForslag">
-                      <a style="cursor:pointer" (click)="sendTilComponent(resultat.id)" [innerHTML]="resultat.sp"></a>
-                      <br /><br />
-                    </div>
-
-                  </div>
-                </form>
-              </div>
-            </li>
           </ul>
         </div>
+        <div class="col-md-4">
+          <div id="søkeFelt" class="navbar-form">
+            <form [formGroup]="forslag" autocomplete="off">
+              <input type="text" id="sok" formControlName="sok" size="30" (keyup)="hentForslag()" class="form-control" placeholder="Søk på spørsmål" />
+              <div id="søkeForslag" *ngIf="visForslagsListe">
+                <div *ngFor="let resultat of alleForslag">
+                  <a style="cursor:pointer" (click)="sendTilComponent(resultat.id)" [innerHTML]="resultat.sp"></a>
+                  <br /><br />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </nav>
 
 <script type="text/javascript">
