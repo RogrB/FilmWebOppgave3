@@ -44,8 +44,8 @@ namespace Grautbakken_Filmsjappe
             List<DBSpørsmål> alleSpørsmål = new List<DBSpørsmål>();
             DBSpørsmål spørsmål1 = new DBSpørsmål() { sp = "Kan man betale med kredittkort?", antallStemmer = 6, poeng = 2, svar = hentSvar01() };
             DBSpørsmål spørsmål2 = new DBSpørsmål() { sp = "Hvor kan man se priser?", antallStemmer = 7, poeng = 3, svar = hentSvar02() };
-            DBSpørsmål spørsmål3 = new DBSpørsmål() { sp = "Går det an å få avslag i pris?", antallStemmer = 4, poeng = 2, svar = hentSvar03() };
-            DBSpørsmål spørsmål4 = new DBSpørsmål() { sp = "Hvor ofte må man betale??", antallStemmer = 4, poeng = 2, svar = hentSvar10() };
+            DBSpørsmål spørsmål3 = new DBSpørsmål() { sp = "Går det an å få avslag i pris?", antallStemmer = 4, poeng = 1, svar = hentSvar03() };
+            DBSpørsmål spørsmål4 = new DBSpørsmål() { sp = "Hvor ofte må man betale??", antallStemmer = 7, poeng = 5, svar = hentSvar10() };
             alleSpørsmål.Add(spørsmål1);
             alleSpørsmål.Add(spørsmål2);
             alleSpørsmål.Add(spørsmål3);
@@ -95,8 +95,8 @@ namespace Grautbakken_Filmsjappe
         private static List<DBSpørsmål> hentSpørsmål2()
         {
             List<DBSpørsmål> alleSpørsmål = new List<DBSpørsmål>();
-            DBSpørsmål spørsmål1 = new DBSpørsmål() { sp = "Hvilke filmkategorier finnes?", antallStemmer = 4, poeng = 1, svar = hentSvar04() };
-            DBSpørsmål spørsmål2 = new DBSpørsmål() { sp = "Hvordan kan man se hvilken film som er best?", antallStemmer = 3, poeng = 1, svar = hentSvar05() };
+            DBSpørsmål spørsmål1 = new DBSpørsmål() { sp = "Hvilke filmkategorier finnes?", antallStemmer = 7, poeng = 6, svar = hentSvar04() };
+            DBSpørsmål spørsmål2 = new DBSpørsmål() { sp = "Hvordan kan man se hvilken film som er best?", antallStemmer = 9, poeng = 8, svar = hentSvar05() };
             DBSpørsmål spørsmål3 = new DBSpørsmål() { sp = "Hvor mange filmer er det på denne siden?", antallStemmer = 5, poeng = 2, svar = hentSvar06() };
             alleSpørsmål.Add(spørsmål1);
             alleSpørsmål.Add(spørsmål2);
@@ -139,7 +139,7 @@ namespace Grautbakken_Filmsjappe
         private static List<DBSpørsmål> hentSpørsmål3()
         {
             List<DBSpørsmål> alleSpørsmål = new List<DBSpørsmål>();
-            DBSpørsmål spørsmål1 = new DBSpørsmål() { sp = "Hvordan kan man se hvilke filmer en skuespiller har vært med i?", antallStemmer = 4, poeng = 2, svar = hentSvar07() };
+            DBSpørsmål spørsmål1 = new DBSpørsmål() { sp = "Hvordan kan man se hvilke filmer en skuespiller har vært med i?", antallStemmer = 6, poeng = 5, svar = hentSvar07() };
             DBSpørsmål spørsmål2 = new DBSpørsmål() { sp = "Hvor kan man se alderen til en skuespiller?", antallStemmer = 3, poeng = 1, svar = hentSvar08() };
             alleSpørsmål.Add(spørsmål1);
             alleSpørsmål.Add(spørsmål2);

@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef } from "@angular/core";
 import { Http, Response, } from '@angular/http';
 import { Headers } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
 
 // RXJS
 import "rxjs/add/operator/map";
@@ -37,7 +36,7 @@ export class AppComponent {
 
   laster: boolean;
 
-  constructor(private _http: Http, private fb: FormBuilder) {
+  constructor(private _http: Http, private fb: FormBuilder, private cd: ChangeDetectorRef) {
 
     this.kategoriSkjema = fb.group({
       id: [""],
@@ -53,6 +52,7 @@ export class AppComponent {
       id: [""],
       svar: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ?]{1,100}")])]
     });
+
 
   }
 
@@ -113,8 +113,9 @@ export class AppComponent {
           if (JsonData) {
             for (let kategoriObjekt of JsonData) {
               this.alleKategorier.push(kategoriObjekt);
-              this.laster = false;
             }
+            this.laster = false;
+            this.cd.detectChanges();
           };
         },
         error => alert(error),
@@ -159,6 +160,7 @@ export class AppComponent {
     this.visKategori = false;
     this.vissp = false;
     this.hentAlleKategorier();
+    this.hentTopListe();
     this.visKategorier = true;
   }
   
@@ -322,6 +324,7 @@ export class AppComponent {
               nyttSp.id = objekt.id;
               this.topListe.push(nyttSp);
             }
+            this.cd.detectChanges();
           }
           else {
             console.log("Klarte ikke å hente topliste av spørsmål");
